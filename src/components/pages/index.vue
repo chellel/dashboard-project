@@ -1,5 +1,13 @@
 <template>
   <div class="page ">
+      <div class="header">
+          <div class="title">
+              年销售全览
+          </div>
+        <div class="title-bottom">
+                <div class="bottom-sidebar"></div>
+        </div>
+      </div>
     <div class="row">
     
       <div class="col-md-4">
@@ -219,6 +227,10 @@ function get_links(relatData) {
 
 //我选折线图作为基础option
 var multiChartOption = {
+    title : {
+        text: '某地区蒸发量和降水量',
+        subtext: '纯属虚构'
+    },
     xAxis: [{
             data: yqyData[0],
             gridIndex: 0
@@ -226,6 +238,11 @@ var multiChartOption = {
         {
             gridIndex: 1,
             type: 'value'
+        },
+        {
+            gridIndex: 2,
+            type : 'category',
+            data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
         }
     ],
     yAxis: [{
@@ -237,7 +254,11 @@ var multiChartOption = {
     }, {
         gridIndex: 1,
         type: 'value'
-    }],
+    },
+    {
+        gridIndex: 2,
+            type : 'value'
+        }],
 
     grid: [ //指定坐标轴位置，大小
         {
@@ -247,11 +268,17 @@ var multiChartOption = {
             height: '31%'
         }, {
             x: '60%',
-            bottom: '1%',
-            height: '90%',
+            height: '40%',
             width: '35%',
             contianLabel: true
-        } //关系图位置
+        },
+        {
+            x: '60%',
+            bottom: '8%',
+            height: '40%',
+            width: '35%',
+            contianLabel: true
+        } 
     ],
 
     series: [{
@@ -307,6 +334,43 @@ var multiChartOption = {
             radius: [10, 80],
             center: ['18%', '75%'],
             data: pieData[0] //饼图数据赋值
+        },
+        {
+            
+            xAxisIndex: 2,
+            yAxisIndex: 2,
+            name:'蒸发量',
+            type:'bar',
+            data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+        {
+            xAxisIndex: 2,
+            yAxisIndex: 2,
+            name:'降水量',
+            type:'bar',
+            data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
+            markPoint : {
+                data : [
+                    {name : '年最高', value : 182.2, xAxis: 7, yAxis: 183},
+                    {name : '年最低', value : 2.3, xAxis: 11, yAxis: 3}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name : '平均值'}
+                ]
+            }
         }
     ]
 };
@@ -394,18 +458,40 @@ export default {
 }
 </script>
  <style scoped>
+     .header{
+         margin: 20px;
+     }
+     .header .title{
+         font-size: 24px;
+         color: #fff;
 
+     }
+     .title-bottom{
+         height:30px;
+         justify-content: center;
+    display: flex;
+
+     }
+.bottom-sidebar{
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    background-image: url("~@/assets/images/bottombar.gif");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 300px;
+}
 
 .box-content {
   display: block;
   padding: 10px 18px;
   margin-bottom: 20px;
   line-height: 1.42857143;
-  background-color: #fff;
   -webkit-transition: border 0.2s ease-in-out;
   -o-transition: border 0.2s ease-in-out;
   transition: border 0.2s ease-in-out;
-  box-shadow: 1px 2px 8px 0px #888888;
+  box-shadow: 1px 2px 8px 0px #888;
 }
 
 .statistic-item {
@@ -437,6 +523,7 @@ export default {
 
 .statistic-item .text {
   font-size: 26px;
+  color:#fff;
 }
 
 .statistic-item .sub-title {
