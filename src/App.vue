@@ -12,7 +12,8 @@ export default {
 
 <style>
 body{
-background: rgb(40, 30, 47) url(https://yyhsong.github.io/iDataV/case09/img/bg.png) 0 0 / 100% 100% no-repeat;
+/*background: url("~@/assets/images/bg.png") 0 0 / 100% 100% no-repeat;*/
+background: url("~@/assets/images/background.png") 0 0 / 100% 100% no-repeat;
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
