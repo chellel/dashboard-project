@@ -92,7 +92,7 @@
 <script>
     import axios from 'axios';
     import ICountUp from 'vue-countup-v2'
-    // import 'echarts/map/js/china.js'
+     import 'echarts/map/js/china.js'
     import chinaJson from 'echarts/map/json/china.json'
     //饼图数据
     var pieData = [
