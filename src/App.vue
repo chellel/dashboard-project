@@ -13,7 +13,7 @@ export default {
 <style>
 body{
 /*background: url("~@/assets/images/bg.png") 0 0 / 100% 100% no-repeat;*/
-background: url("~@/assets/images/background.png") 0 0 / 100% 100% no-repeat;
+background: url("./assets/images/background.png") 0 0 / 100% 100% no-repeat;
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
