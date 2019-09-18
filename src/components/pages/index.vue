@@ -34,7 +34,6 @@
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <div class="piechart"></div>
                     <table class="table border-table darkblue" style="width: 100%" cellpadding="0" cellspacing="0">
                         <tr>
                             <td class="th" style="width: 90px;">排名</td>
@@ -70,21 +69,14 @@
                     <div class="col-sm-12 col-md-12">
 
                         <div class="box-content">
-                            <div class="title">
-                                <h4>销售总额</h4>
-                               <p>
-                                   同比增长
-                               </p>
-                            </div>
+                              <div class="caption">
+                                <h3>销售总额</h3>
+                                <p>同比增长    </p>
+                                   </div>
+                            <div ref="pieChart" class="chart"></div>
+                            <div ref="lineChart" class="chart"></div>
                             <div style="height:1000px;" id="mapContainer"></div>
-                            <div class="caption">
-                                <h3>Thumbnail label</h3>
-                                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
-                                    porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-                                </p>
-                                <p><a href="#" class="btn btn-primary" role="button" @click="changeData">Button</a>
-                                    <a href="#" class="btn btn-default" role="button">Button</a></p>
-                            </div>
+                          
                         </div>
                     </div>
                 </div>
@@ -101,6 +93,17 @@
     import ICountUp from 'vue-countup-v2'
     import 'echarts/map/js/china.js'
     import chinaJson from 'echarts/map/json/china.json'
+
+    function getXYData(data,property){
+            var res=[];
+            data.forEach(function(item){
+                res.push(item[property])
+            })
+            debugger
+
+            return res
+        }
+
     //饼图数据
     var pieData = [
         [{
@@ -1196,9 +1199,140 @@
                 axios.get('https://easy-mock.com/mock/5d721076b158cf18134a822b/dashboard/getSales').then(res => {
                     debugger
                 })
+            },
+            drawPieChart(){
+             
+           var firstCategory=[{
+        "categoryid": "1",
+        "category": "自行车",
+        value:4045288
+      },
+      {
+        "categoryid": "2",
+        "category": "服装",
+        value:41045288
+      },
+      {
+        "categoryid": "3",
+        "category": "配件",
+        value:45288
+      },
+      {
+        "categoryid": "4",
+        "category": "辅助用品",
+        value:435288
+      }
+    ];
+            var option = {
+    title: {
+        text: '产品分类占比',
+        subtext: '一级产品分类',
+        left: 'center'
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter:function(params){
+return `${params.data.category} 销售额：<br/>${params.data.value}元(${params.percent}%)`;
+        }
+    },
+    legend: {
+        // orient: 'vertical',
+        // top: 'middle',
+        bottom: 10,
+        left: 'center',
+        data: (function getXYData(data,property){
+            var data=firstCategory;
+            var property="category";
+            var res=[];
+            data.forEach(function(item){
+                res.push(item[property])
+            })
+            return res
+        })()
+    },
+    series : [
+        {
+            type: 'pie',
+            radius : '65%',
+            center: ['50%', '50%'],
+            selectedMode: 'single',
+            data:firstCategory,
+            itemStyle: {
+                emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
             }
+        }
+    ]
+};
+let myChart = this.$echarts.init(this.$refs.pieChart);
+                window.onresize = myChart.resize;
+                myChart.setOption(option)
+            },
+            drawLineChart(){
+                var monthsales=[
+{ "month": "一", "amount": "6058854" },
+{ "month": "二", "amount": "3795622" },
+{ "month": "三", "amount": "6390316" },
+{ "month": "四", "amount": "4304697" },
+{ "month": "五", "amount": "6401637" },
+{ "month": "六", "amount": "9288771" },
+{ "month": "七", "amount": "8429464" },
+{ "month": "八", "amount": "5522733" },
+{ "month": "九", "amount": "7995554" },
+{ "month": "十", "amount": "7348953" },
+{ "month": "十一", "amount": "5187540" },
+{ "month": "十二", "amount": "6908795" },
+
+    ]
+
+                var option = {
+                    title: {
+        text: '月销售额',
+        left: 'center'
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: "{b}月份 {a}  <br/> {c}元"
+    },
+    xAxis: {
+        type: 'category',
+        data: (function(){
+            var res=[];
+            monthsales.forEach(function(item){
+                res.push(item.month)
+            })
+            return res
+
+        })()
+    },
+    yAxis: {
+        type: 'value'
+    },
+    series: [{
+        name:"销售额",
+        data: (function(){
+            var res=[];
+            monthsales.forEach(function(item){
+                res.push(item.amount)
+            })
+            return res
+
+        })(),
+        type: 'line'
+    }]
+};
+let myChart = this.$echarts.init(this.$refs.lineChart);
+                window.onresize = myChart.resize;
+                myChart.setOption(option)
+            }
+
         },
         mounted() {
+            this.drawPieChart();
+            this.drawLineChart();
             this.drawMultiChart2();
             //   this.drawChart();
             // this.drawMultiChart();
@@ -1300,7 +1434,7 @@
     }
 
     .chart {
-        height: 700px;
+        height: 400px;
     }
 
     .echart {
@@ -1398,7 +1532,7 @@
     }
 
 
-    .box-content .title {
+    .box-content .caption {
         text-align: left;
         color: #fff;
     }
