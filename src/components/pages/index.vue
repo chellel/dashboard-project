@@ -2,7 +2,7 @@
     <div class="page">
         <div class="header">
             <div class="title">
-                年销售全览
+                2019年度实时销售总览
             </div>
             <div class="title-bottom">
                 <div class="bottom-sidebar"></div>
@@ -68,8 +68,15 @@
             <div class="col-md-8">
                 <div class="row">
                     <div class="col-sm-12 col-md-12">
+
                         <div class="box-content">
-                <div style="height:1000px;" id="mapContainer"></div>
+                            <div class="title">
+                                <h4>销售总额</h4>
+                               <p>
+                                   同比增长
+                               </p>
+                            </div>
+                            <div style="height:1000px;" id="mapContainer"></div>
                             <div class="caption">
                                 <h3>Thumbnail label</h3>
                                 <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
@@ -84,7 +91,7 @@
             </div>
         </div>
         <div class="footer">
-                <div class="bottom-line"></div>
+            <div class="bottom-line"></div>
 
         </div>
     </div>
@@ -92,7 +99,7 @@
 <script>
     import axios from 'axios';
     import ICountUp from 'vue-countup-v2'
-     import 'echarts/map/js/china.js'
+    import 'echarts/map/js/china.js'
     import chinaJson from 'echarts/map/json/china.json'
     //饼图数据
     var pieData = [
@@ -132,7 +139,7 @@
 
     //-------------------------------关系图数据获取:start，有点多，可先忽略查看-------------------------------------------
 
-    
+
     var mydata = [
         { name: '北京', value: '100' }, { name: '天津', value: randomData() },
         { name: '上海', value: randomData() }, { name: '重庆', value: randomData() },
@@ -191,7 +198,7 @@
             data: mydata  //数据
         }]
     };
- 
+
     function renderItem(params, api) {
         var coords = [
             [116.7, 39.53],
@@ -227,8 +234,8 @@
         return Math.round(Math.random() * 500);
     }
 
-    
-    
+
+
     var COLORS = ["#070093", "#1c3fbf", "#1482e5", "#70b4eb", "#b4e0f3", "#ffffff"];
 
     var multiChartOption = {
@@ -341,246 +348,246 @@
         { // 进行相关配置
             type: 'map',
 
-                        backgroundColor: 'transparent',
-                        tooltip: {}, // 鼠标移到图里面的浮动提示框
-                        dataRange: {
-                            show: false,
-                            min: 0,
-                            max: 1000,
-                            text: ['High', 'Low'],
-                            realtime: true,
-                            calculable: true,
-                            //  color: ['orangered', 'yellow', 'lightskyblue']
-                        },
+            backgroundColor: 'transparent',
+            tooltip: {}, // 鼠标移到图里面的浮动提示框
+            dataRange: {
+                show: false,
+                min: 0,
+                max: 1000,
+                text: ['High', 'Low'],
+                realtime: true,
+                calculable: true,
+                //  color: ['orangered', 'yellow', 'lightskyblue']
+            },
 
-                        geo: { // 这个是重点配置区
-                            map: 'china', // 表示中国地图
-                            roam: true,
-                            label: {
-                                normal: {
-                                    show: true, // 是否显示对应地名
-                                    textStyle: {
-                                        color: 'rgba(0,0,0,0.4)'
-                                    }
-                                }
-                            },
-                            itemStyle: {
-                                normal: {
-                                    borderColor: 'rgba(0, 0, 0, 0.2)',
-                                    //    areaColor: "#5698d9",
-                                    color: "#5698d9"
-                                },
-                                emphasis: {
-                                    //    areaColor: "#5698d9",
-                                    shadowOffsetX: 0,
-                                    shadowOffsetY: 0,
-                                    shadowBlur: 20,
-                                    borderWidth: 0,
-                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
-                                },
-                                itemStyle: {
-                                    normal: {
-                                        color: '#8fc8f2',
-                                        shadowBlur: 10,
-                                        shadowColor: '#333'
-                                    }
-                                }
-                            }
-                        },
+            geo: { // 这个是重点配置区
+                map: 'china', // 表示中国地图
+                roam: true,
+                label: {
+                    normal: {
+                        show: true, // 是否显示对应地名
+                        textStyle: {
+                            color: 'rgba(0,0,0,0.4)'
+                        }
+                    }
+                },
+                itemStyle: {
+                    normal: {
+                        borderColor: 'rgba(0, 0, 0, 0.2)',
+                        //    areaColor: "#5698d9",
+                        color: "#5698d9"
+                    },
+                    emphasis: {
+                        //    areaColor: "#5698d9",
+                        shadowOffsetX: 0,
+                        shadowOffsetY: 0,
+                        shadowBlur: 20,
+                        borderWidth: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: '#8fc8f2',
+                            shadowBlur: 10,
+                            shadowColor: '#333'
+                        }
+                    }
+                }
+            },
 
-                        visualMap: {
-                            min: 0,
-                            max: 200,
-                            calculable: true,
-                            inRange: {
-                                color: ['#50a3ba', '#eac736', '#d94e5d']
-                            },
-                            textStyle: {
-                                color: '#fff'
-                            }
-                        },
-                        bmap: {
-                            center: [104.114129, 37.550339],
-                            zoom: 5,
-                            roam: true,
-                            mapStyle: {
-                                styleJson: [
-                                    {
-                                        "featureType": "water",
-                                        "elementType": "all",
-                                        "stylers": {
-                                            "color": "#044161"
-                                        }
-                                    },
-                                    {
-                                        "featureType": "land",
-                                        "elementType": "all",
-                                        "stylers": {
-                                            "color": "#004981"
-                                        }
-                                    },
-                                    {
-                                        "featureType": "boundary",
-                                        "elementType": "geometry",
-                                        "stylers": {
-                                            "color": "#064f85"
-                                        }
-                                    },
-                                    {
-                                        "featureType": "railway",
-                                        "elementType": "all",
-                                        "stylers": {
-                                            "visibility": "off"
-                                        }
-                                    },
-                                    {
-                                        "featureType": "highway",
-                                        "elementType": "geometry",
-                                        "stylers": {
-                                            "color": "#004981"
-                                        }
-                                    },
-                                    {
-                                        "featureType": "highway",
-                                        "elementType": "geometry.fill",
-                                        "stylers": {
-                                            "color": "#005b96",
-                                            "lightness": 1
-                                        }
-                                    },
-                                    {
-                                        "featureType": "highway",
-                                        "elementType": "labels",
-                                        "stylers": {
-                                            "visibility": "off"
-                                        }
-                                    },
-                                    {
-                                        "featureType": "arterial",
-                                        "elementType": "geometry",
-                                        "stylers": {
-                                            "color": "#004981"
-                                        }
-                                    },
-                                    {
-                                        "featureType": "arterial",
-                                        "elementType": "geometry.fill",
-                                        "stylers": {
-                                            "color": "#00508b"
-                                        }
-                                    },
-                                    {
-                                        "featureType": "poi",
-                                        "elementType": "all",
-                                        "stylers": {
-                                            "visibility": "off"
-                                        }
-                                    },
-                                    {
-                                        "featureType": "green",
-                                        "elementType": "all",
-                                        "stylers": {
-                                            "color": "#056197",
-                                            "visibility": "off"
-                                        }
-                                    },
-                                    {
-                                        "featureType": "subway",
-                                        "elementType": "all",
-                                        "stylers": {
-                                            "visibility": "off"
-                                        }
-                                    },
-                                    {
-                                        "featureType": "manmade",
-                                        "elementType": "all",
-                                        "stylers": {
-                                            "visibility": "off"
-                                        }
-                                    },
-                                    {
-                                        "featureType": "local",
-                                        "elementType": "all",
-                                        "stylers": {
-                                            "visibility": "off"
-                                        }
-                                    },
-                                    {
-                                        "featureType": "arterial",
-                                        "elementType": "labels",
-                                        "stylers": {
-                                            "visibility": "off"
-                                        }
-                                    },
-                                    {
-                                        "featureType": "boundary",
-                                        "elementType": "geometry.fill",
-                                        "stylers": {
-                                            "color": "#029fd4"
-                                        }
-                                    },
-                                    {
-                                        "featureType": "building",
-                                        "elementType": "all",
-                                        "stylers": {
-                                            "color": "#1a5787"
-                                        }
-                                    },
-                                    {
-                                        "featureType": "label",
-                                        "elementType": "all",
-                                        "stylers": {
-                                            "visibility": "off"
-                                        }
-                                    }
-                                ]
-                            }
-                        },
-
-                        series: [{
-                            type: 'scatter',
-                            coordinateSystem: 'geo' // 对应上方配置
-
-                        },
+            visualMap: {
+                min: 0,
+                max: 200,
+                calculable: true,
+                inRange: {
+                    color: ['#50a3ba', '#eac736', '#d94e5d']
+                },
+                textStyle: {
+                    color: '#fff'
+                }
+            },
+            bmap: {
+                center: [104.114129, 37.550339],
+                zoom: 5,
+                roam: true,
+                mapStyle: {
+                    styleJson: [
                         {
-                            name: 'pm2.5',
-                            type: 'scatter',
-                            coordinateSystem: 'bmap',
-                            data: [{ "name": "上海", "value": [121.48, 31.22, 25] }],
-                            symbolSize: function (val) {
-                                return val[2] / 10;
-                            },
-                            label: {
-                                normal: {
-                                    formatter: '{b}',
-                                    position: 'right',
-                                    show: false
-                                },
-                                emphasis: {
-                                    show: true
-                                }
-                            },
-                            itemStyle: {
-                                normal: {
-                                    color: '#ddb926'
-                                }
+                            "featureType": "water",
+                            "elementType": "all",
+                            "stylers": {
+                                "color": "#044161"
                             }
                         },
                         {
-                            name: '启动次数', // 浮动框的标题
-                            type: 'map',
-                            geoIndex: 0,
-                            data: geoValue,
-                            itemStyle: {
-                                normal: {
-                                    //  areaColor: COLORS[2]
-                                    //   color: '#fff'
-                                }
+                            "featureType": "land",
+                            "elementType": "all",
+                            "stylers": {
+                                "color": "#004981"
+                            }
+                        },
+                        {
+                            "featureType": "boundary",
+                            "elementType": "geometry",
+                            "stylers": {
+                                "color": "#064f85"
+                            }
+                        },
+                        {
+                            "featureType": "railway",
+                            "elementType": "all",
+                            "stylers": {
+                                "visibility": "off"
+                            }
+                        },
+                        {
+                            "featureType": "highway",
+                            "elementType": "geometry",
+                            "stylers": {
+                                "color": "#004981"
+                            }
+                        },
+                        {
+                            "featureType": "highway",
+                            "elementType": "geometry.fill",
+                            "stylers": {
+                                "color": "#005b96",
+                                "lightness": 1
+                            }
+                        },
+                        {
+                            "featureType": "highway",
+                            "elementType": "labels",
+                            "stylers": {
+                                "visibility": "off"
+                            }
+                        },
+                        {
+                            "featureType": "arterial",
+                            "elementType": "geometry",
+                            "stylers": {
+                                "color": "#004981"
+                            }
+                        },
+                        {
+                            "featureType": "arterial",
+                            "elementType": "geometry.fill",
+                            "stylers": {
+                                "color": "#00508b"
+                            }
+                        },
+                        {
+                            "featureType": "poi",
+                            "elementType": "all",
+                            "stylers": {
+                                "visibility": "off"
+                            }
+                        },
+                        {
+                            "featureType": "green",
+                            "elementType": "all",
+                            "stylers": {
+                                "color": "#056197",
+                                "visibility": "off"
+                            }
+                        },
+                        {
+                            "featureType": "subway",
+                            "elementType": "all",
+                            "stylers": {
+                                "visibility": "off"
+                            }
+                        },
+                        {
+                            "featureType": "manmade",
+                            "elementType": "all",
+                            "stylers": {
+                                "visibility": "off"
+                            }
+                        },
+                        {
+                            "featureType": "local",
+                            "elementType": "all",
+                            "stylers": {
+                                "visibility": "off"
+                            }
+                        },
+                        {
+                            "featureType": "arterial",
+                            "elementType": "labels",
+                            "stylers": {
+                                "visibility": "off"
+                            }
+                        },
+                        {
+                            "featureType": "boundary",
+                            "elementType": "geometry.fill",
+                            "stylers": {
+                                "color": "#029fd4"
+                            }
+                        },
+                        {
+                            "featureType": "building",
+                            "elementType": "all",
+                            "stylers": {
+                                "color": "#1a5787"
+                            }
+                        },
+                        {
+                            "featureType": "label",
+                            "elementType": "all",
+                            "stylers": {
+                                "visibility": "off"
                             }
                         }
-                        ]
+                    ]
+                }
+            },
+
+            series: [{
+                type: 'scatter',
+                coordinateSystem: 'geo' // 对应上方配置
+
+            },
+            {
+                name: 'pm2.5',
+                type: 'scatter',
+                coordinateSystem: 'bmap',
+                data: [{ "name": "上海", "value": [121.48, 31.22, 25] }],
+                symbolSize: function (val) {
+                    return val[2] / 10;
+                },
+                label: {
+                    normal: {
+                        formatter: '{b}',
+                        position: 'right',
+                        show: false
+                    },
+                    emphasis: {
+                        show: true
                     }
-               
+                },
+                itemStyle: {
+                    normal: {
+                        color: '#ddb926'
+                    }
+                }
+            },
+            {
+                name: '启动次数', // 浮动框的标题
+                type: 'map',
+                geoIndex: 0,
+                data: geoValue,
+                itemStyle: {
+                    normal: {
+                        //  areaColor: COLORS[2]
+                        //   color: '#fff'
+                    }
+                }
+            }
+            ]
+        }
+
         ]
     };
 
@@ -708,7 +715,7 @@
                 let element = document.getElementById('yqyMain');
                 if (element == null)
                     return
-            this.$echarts.registerMap('china', chinaJson)
+                this.$echarts.registerMap('china', chinaJson)
 
                 let chart = this.$echarts.init(element)
                 //每次窗口大小改变的时候都会触发onresize事件，这个时候我们将echarts对象的尺寸赋值给窗口的大小这个属性，从而实现图表对象与窗口对象的尺寸一致的情况
@@ -802,7 +809,7 @@
                                 color: '#fff'
                             }
                         },
-                      
+
 
                         series: [{
                             type: 'scatter',
@@ -849,28 +856,28 @@
                     }
                 )
             },
-            drawMultiChart2(){
+            drawMultiChart2() {
                 var convertData2 = function (data) {
-        var res = [];
-        for (var i = 0; i < data.length; i++) {
-            var geoCoord = geoCoordMap[data[i].name];
-            if (geoCoord) {
-                res.push({
-                    name: data[i].name,
-                    value: geoCoord.concat(data[i].value)
-                });
-            }
-        }
-        return res;
-    };
+                    var res = [];
+                    for (var i = 0; i < data.length; i++) {
+                        var geoCoord = geoCoordMap[data[i].name];
+                        if (geoCoord) {
+                            res.push({
+                                name: data[i].name,
+                                value: geoCoord.concat(data[i].value)
+                            });
+                        }
+                    }
+                    return res;
+                };
                 var geoCoordMap = { '河南省': [113.664496, 34.817821], '河南': [113.75783, 34.502434], '北京市': [116.403694, 39.915378], '天津市': [117.216837, 39.142415], '上海市': [121.479662, 31.234329], '河北省': [114.494585, 38.129532], '山西省': [112.569095, 37.908919], '辽宁省': [123.445046, 41.806913], '吉林省': [126.582519, 43.86473], '新疆': [87.559985, 43.879367], '西藏': [91.160816, 29.653148], '内蒙古': [111.771822, 40.93481], '四川省': [106.492302, 29.601285], '青海省': [101.73138, 36.627027], '广东省': [113.254301, 23.129454], '湖南省': [112.953187, 28.265007] };
-    var data = [{ name: '河南省', value: 3 }, { name: '河南', value: 1 }, { name: '北京市', value: 1 }, { name: '天津市', value: 1 }, { name: '上海市', value: 2 }, { name: '河北省', value: 1 }, { name: '山西省', value: 1 }, { name: '辽宁省', value: 0 }, { name: '吉林省', value: 1 }, { name: '新疆', value: 0 }, { name: '西藏', value: 1 }, { name: '内蒙古', value: 0 }, { name: '四川省', value: 0 }, { name: '青海省', value: 0 }, { name: '广东省', value: 0 }, { name: '湖南省', value: 0 }];
+                var data = [{ name: '河南省', value: 3 }, { name: '河南', value: 1 }, { name: '北京市', value: 1 }, { name: '天津市', value: 1 }, { name: '上海市', value: 2 }, { name: '河北省', value: 1 }, { name: '山西省', value: 1 }, { name: '辽宁省', value: 0 }, { name: '吉林省', value: 1 }, { name: '新疆', value: 0 }, { name: '西藏', value: 1 }, { name: '内蒙古', value: 0 }, { name: '四川省', value: 0 }, { name: '青海省', value: 0 }, { name: '广东省', value: 0 }, { name: '湖南省', value: 0 }];
                 this.$echarts.registerMap('china', chinaJson)
                 var myChart = this.$echarts.init(document.getElementById('mapContainer'));
-  //每次窗口大小改变的时候都会触发onresize事件，这个时候我们将echarts对象的尺寸赋值给窗口的大小这个属性，从而实现图表对象与窗口对象的尺寸一致的情况
-  window.onresize = myChart.resize;
+                //每次窗口大小改变的时候都会触发onresize事件，这个时候我们将echarts对象的尺寸赋值给窗口的大小这个属性，从而实现图表对象与窗口对象的尺寸一致的情况
+                window.onresize = myChart.resize;
 
-              var option = {
+                var option = {
                     backgroundColor: 'transparent',
                     title: {
                         top: 20,
@@ -883,302 +890,302 @@
                         }
                     },
                     tooltip: {
-                trigger: 'axis',
-                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                },
-                formatter: function (params) {
-                    if (typeof (params.value)[2] == "undefined") {
-                        //return params.name + ' : ' + params.value;
-                    } else {//只有数据不为空才显示
-                        return params.name + ' : ' + params.value[2];
-                    }
-                }
-            },
-            visualMap: {
-                show: true,
-                min: 0,
-                max: 500,
-                left: 'left',
-               top: '300',
-                text: ['高', '低'], // 文本，默认为数值文本
-                calculable: true,
-                seriesIndex: [1],
-                inRange: {
-                },
-                dimension: 0
-            },
-            //布局
-            grid: [
-                { x: '55%', y: '5%', width: '40%', height: '40%' },
-                { x: '50%',  bottom:'5%',width: '40%', height: '25%' }
-            ],
-            xAxis: [{
-                title: "asdf",
-                gridIndex: 0,
-                type: 'value',
-                max: 10,//x轴刻度
-                axisLabel: {
-                    show: true,
-                },
-                splitLine: {
-                    show: true
-                }
-            }, {
-                gridIndex: 1,
-                type: 'category',
-                axisLabel: {
-                    show: true,
-                },
-                splitLine: {
-                    show: true
-                },   
-                 data: ['2018-07-30', '2018-07-31', '2018-08-01', '2018-08-02', '2018-08-03', '2018-08-04', '2018-08-05', '2018-08-06'] 
-            }],
-            yAxis: [{
-                gridIndex: 0,
-                type: 'category',
-                axisLabel: {
-                    show: true,
-                    textStyle: {
-                        color: '#ddd'
-                    }
-                }
-            }, {
-                gridIndex: 1,
-                type: 'value',
-                axisLabel: {
-                    show: true,
-                    textStyle: {
-                        color: '#ddd'
-                    }
-                }
-            }],
-            //布局e
-            geo: {
-                show: true,
-                map: 'china',
-                zoom:1,  //地图绽放
-                scaleLimit:2,
-                label: {
-                    normal: {
+                        trigger: 'axis',
+                        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                        },
+                        formatter: function (params) {
+                            if (typeof (params.value)[2] == "undefined") {
+                                //return params.name + ' : ' + params.value;
+                            } else {//只有数据不为空才显示
+                                return params.name + ' : ' + params.value[2];
+                            }
+                        }
+                    },
+                    visualMap: {
                         show: true,
-                        textStyle: {
-                                color: '#fff'
-                                    }
+                        min: 0,
+                        max: 500,
+                        left: 'left',
+                        top: '300',
+                        text: ['高', '低'], // 文本，默认为数值文本
+                        calculable: true,
+                        seriesIndex: [1],
+                        inRange: {
+                        },
+                        dimension: 0
                     },
-                    emphasis: {
-                        show: false,
-                    }
-                },
-                roam: false,//是否开启鼠标缩放和平移漫游
-                itemStyle: {
-                    normal: {
-                        areaColor: 'transparent',
-                        borderColor: '#3fdaff',
-                        borderWidth: 2,
-                        shadowColor: 'rgba(63, 218, 255, 0.5)',
-                        shadowBlur: 30
-                    },
-                    emphasis: {
-                        areaColor: '#2B91B7',
-                        color:'#fff'
-                    }
-                }
-            },
-            //调整显示级别
-            layoutCenter: ['25%', '22%'],
-            layoutSize: 400,
-
-            series: [
-           
-                {
-                    name: '地图台站',
-                    type: 'effectScatter',
-                    coordinateSystem: 'geo',
-                    data: convertData2(data.sort(function (a, b) {
-                        return b.value - a.value;
-                    }).slice(0, 5)),
-                    symbolSize: function (val) {
-                        //return val[2] / 10;//地图闪动
-                        return 20;
-                    },
-                    showEffectOn: 'render',
-                    rippleEffect: {
-                        brushType: 'stroke'
-                    },
-                    hoverAnimation: true,
-                    label: {
-                        normal: {
-                            formatter: '{b}',
-                            position: 'right',
+                    //布局
+                    grid: [
+                        { x: '55%', y: '5%', width: '40%', height: '40%' },
+                        { x: '50%', bottom: '5%', width: '40%', height: '25%' }
+                    ],
+                    xAxis: [{
+                        title: "asdf",
+                        gridIndex: 0,
+                        type: 'value',
+                        max: 10,//x轴刻度
+                        axisLabel: {
+                            show: true,
+                        },
+                        splitLine: {
                             show: true
                         }
-                    },
-                    itemStyle: {
-                        normal: {
-                            color: '#F4E925',
-                            shadowBlur: 10,
-                            shadowColor: '#05C3F9'
+                    }, {
+                        gridIndex: 1,
+                        type: 'category',
+                        axisLabel: {
+                            show: true,
+                        },
+                        splitLine: {
+                            show: true
+                        },
+                        data: ['2018-07-30', '2018-07-31', '2018-08-01', '2018-08-02', '2018-08-03', '2018-08-04', '2018-08-05', '2018-08-06']
+                    }],
+                    yAxis: [{
+                        gridIndex: 0,
+                        type: 'category',
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: '#ddd'
+                            }
+                        }
+                    }, {
+                        gridIndex: 1,
+                        type: 'value',
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: '#ddd'
+                            }
+                        }
+                    }],
+                    //布局e
+                    geo: {
+                        show: true,
+                        map: 'china',
+                        zoom: 1,  //地图绽放
+                        scaleLimit: 2,
+                        label: {
+                            normal: {
+                                show: true,
+                                textStyle: {
+                                    color: '#fff'
+                                }
+                            },
+                            emphasis: {
+                                show: false,
+                            }
+                        },
+                        roam: false,//是否开启鼠标缩放和平移漫游
+                        itemStyle: {
+                            normal: {
+                                areaColor: 'transparent',
+                                borderColor: '#3fdaff',
+                                borderWidth: 2,
+                                shadowColor: 'rgba(63, 218, 255, 0.5)',
+                                shadowBlur: 30
+                            },
+                            emphasis: {
+                                areaColor: '#2B91B7',
+                                color: '#fff'
+                            }
                         }
                     },
-                    zlevel: 1
-                }, {
+                    //调整显示级别
+                    layoutCenter: ['25%', '22%'],
+                    layoutSize: 400,
+
+                    series: [
+
+                        {
+                            name: '地图台站',
+                            type: 'effectScatter',
+                            coordinateSystem: 'geo',
+                            data: convertData2(data.sort(function (a, b) {
+                                return b.value - a.value;
+                            }).slice(0, 5)),
+                            symbolSize: function (val) {
+                                //return val[2] / 10;//地图闪动
+                                return 20;
+                            },
+                            showEffectOn: 'render',
+                            rippleEffect: {
+                                brushType: 'stroke'
+                            },
+                            hoverAnimation: true,
+                            label: {
+                                normal: {
+                                    formatter: '{b}',
+                                    position: 'right',
+                                    show: true
+                                }
+                            },
+                            itemStyle: {
+                                normal: {
+                                    color: '#F4E925',
+                                    shadowBlur: 10,
+                                    shadowColor: '#05C3F9'
+                                }
+                            },
+                            zlevel: 1
+                        }, {
                             name: '启动次数', // 浮动框的标题
                             type: 'map',
-                           geoIndex: 0,
+                            geoIndex: 0,
                             data: geoValue,
                             itemStyle: {
                                 normal: {
-                                     areaColor: COLORS[2],
-                                      color: '#fff'
+                                    areaColor: COLORS[2],
+                                    color: '#fff'
                                 }
                             }
                         }, {
-                    name: '政治面貌',
-                    type: 'pie',
-                    z: 2,
-                    color: ['#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3'],
-                    selectedMode: 'single',
-                    radius: [0, '15%'],        //radius确定饼图的大小
-                    center: ['20%', '60%'],    //center来确定饼图中心位置
-                    label: {
-                        normal: {
-                            position: 'inner'
+                            name: '政治面貌',
+                            type: 'pie',
+                            z: 2,
+                            color: ['#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3'],
+                            selectedMode: 'single',
+                            radius: [0, '15%'],        //radius确定饼图的大小
+                            center: ['20%', '60%'],    //center来确定饼图中心位置
+                            label: {
+                                normal: {
+                                    position: 'inner'
+                                }
+                            },
+                            labelLine: {
+                                normal: {
+                                    show: false
+                                }
+                            },
+                            //显示series中信息，提示框组件
+                            tooltip: {
+                                trigger: 'item',
+                                formatter: "{a} <br/>{b} : {c} ({d}%)"
+                            },
+                            data: [{ value: 2, name: '无党派人士' }, { value: 4, name: '党员', selected: true }, { value: 5, name: '团员' }, { value: 1, name: '其它' }]
+                        },
+                        {
+                            name: '年龄占比',
+                            type: 'pie',
+                            z: 2,
+                            // 全局调色盘。
+                            color: ['#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3'],
+                            radius: ['20%', '30%'],
+                            center: ['20%', '60%'],
+                            label: { formatter: "{b}占{d}%" },
+                            itemStyle: {  //itemStyle有正常显示：normal，有鼠标hover的高亮显示：emphasis
+                                emphasis: {  //normal显示阴影,与shadow有关的都是阴影的设置
+                                    shadowBlur: 10,  //阴影大小
+                                    shadowOffsetX: 0,  //阴影水平方向上的偏移
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'  //阴影颜色
+                                }
+                            },
+                            //显示series中信息，提示框组件
+                            tooltip: {
+                                trigger: 'item',
+                                formatter: "{a} <br/>{b} : {c} ({d}%)"
+                            },
+                            data: [{ value: 2, name: '18-25' }, { value: 8, name: '26-30' }, { value: 2, name: '31-40' }, { value: 0, name: '41-55' }, { value: 12, name: '55以上' }]
                         }
-                    },
-                    labelLine: {
-                        normal: {
-                            show: false
+                        , {
+                            id: 'bar',
+                            name: '台站排名',
+                            type: 'bar',
+                            xAxisIndex: 0,
+                            yAxisIndex: 0,
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: ["100%", "40%"],
+                                    color: "#ffffff",
+                                    formatter: "{b} : {c}"
+                                }
+                            },
+                            tooltip: {
+                                trigger: 'item',
+                                formatter: "{b} : {c}"
+                            },
+                            itemStyle: {
+                                //每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
+                                color: function (params) {
+                                    var colorList = ['#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3'];
+                                    return colorList[params.dataIndex];
+                                }
+                            },
+                            z: 2,
+                            data: [{ value: 3, name: '河南省' }, { value: 1, name: '河南' }, { value: 1, name: '北京市' }, { value: 1, name: '天津市' }, { value: 2, name: '上海市' }, { value: 1, name: '河北省' }, { value: 1, name: '山西省' }, { value: 0, name: '辽宁省' }, { value: 1, name: '吉林省' }, { value: 0, name: '新疆' }, { value: 1, name: '西藏' }, { value: 0, name: '内蒙古' }, { value: 0, name: '四川省' }, { value: 0, name: '青海省' }, { value: 0, name: '广东省' }, { value: 0, name: '湖南省' }]
+                        },
+                        {
+                            name: '请假',
+                            type: 'bar',
+                            xAxisIndex: 1,
+                            yAxisIndex: 1,
+                            tooltip: {
+                                trigger: 'item',
+                                formatter: "{a} : {c}"
+                            },
+                            data: [1, 3, 2, 4, 1, 4, 3]
+                        },
+                        {
+                            name: '迟到',
+                            type: 'bar',
+                            xAxisIndex: 1,
+                            yAxisIndex: 1,
+                            tooltip: {
+                                trigger: 'item',
+                                formatter: "{a} : {c}"
+                            },
+                            data: [1, 2, 3, 4, 3, 2, 2]
+                        },
+                        {
+                            name: '早退',
+                            type: 'bar',
+                            xAxisIndex: 1,
+                            yAxisIndex: 1,
+                            tooltip: {
+                                trigger: 'item',
+                                formatter: "{a} : {c}"
+                            },
+                            data: [1, 2, 3, 4, 3, 2, 4]
+                        },
+                        {
+                            name: '调休',
+                            type: 'bar',
+                            xAxisIndex: 1,
+                            yAxisIndex: 1,
+                            tooltip: {
+                                trigger: 'item',
+                                formatter: "{a} : {c}"
+                            },
+                            data: [1, 3, 2, 4, 1, 4, 2]
+                        },
+                        {
+                            name: '加班',
+                            type: 'bar',
+                            xAxisIndex: 1,
+                            yAxisIndex: 1,
+                            tooltip: {
+                                trigger: 'item',
+                                formatter: "{a} : {c}"
+                            },
+                            data: [1, 3, 2, 4, 1, 4, 2]
+                        },
+                        {
+                            name: '旷工',
+                            type: 'bar',
+                            xAxisIndex: 1,
+                            yAxisIndex: 1,
+                            tooltip: {
+                                trigger: 'item',
+                                formatter: "{a} : {c}"
+                            },
+                            data: [1, 3, 2, 4, 1, 4, 2]
                         }
-                    },
-                    //显示series中信息，提示框组件
-                    tooltip: {
-                        trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
-                    },
-                    data: [{ value: 2, name: '无党派人士' }, { value: 4, name: '党员', selected: true }, { value: 5, name: '团员' }, { value: 1, name: '其它' }]
-                },
-                {
-                    name: '年龄占比',
-                    type: 'pie',
-                    z: 2,
-                    // 全局调色盘。
-                    color: ['#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3'],
-                    radius: ['20%', '30%'],
-                    center: ['20%', '60%'],
-                    label: { formatter: "{b}占{d}%" },
-                    itemStyle: {  //itemStyle有正常显示：normal，有鼠标hover的高亮显示：emphasis
-                        emphasis: {  //normal显示阴影,与shadow有关的都是阴影的设置
-                            shadowBlur: 10,  //阴影大小
-                            shadowOffsetX: 0,  //阴影水平方向上的偏移
-                            shadowColor: 'rgba(0, 0, 0, 0.5)'  //阴影颜色
-                        }
-                    },
-                    //显示series中信息，提示框组件
-                    tooltip: {
-                        trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
-                    },
-                    data: [{ value: 2, name: '18-25' }, { value: 8, name: '26-30' }, { value: 2, name: '31-40' }, { value: 0, name: '41-55' }, { value: 12, name: '55以上' }]
-                }
-                , {
-                    id: 'bar',
-                    name: '台站排名',
-                    type: 'bar',
-                    xAxisIndex: 0,
-                    yAxisIndex: 0,
-                    label: {
-                        normal: {
-                            show: true,
-                            position: ["100%", "40%"],
-                            color: "#ffffff",
-                            formatter: "{b} : {c}"
-                        }
-                    },
-                    tooltip: {
-                        trigger: 'item',
-                        formatter: "{b} : {c}"
-                    },
-                    itemStyle: {
-                        //每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
-                        color: function (params) {
-                            var colorList = ['#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3'];
-                            return colorList[params.dataIndex];
-                        }
-                    },
-                    z: 2,
-                    data: [{ value: 3, name: '河南省' }, { value: 1, name: '河南' }, { value: 1, name: '北京市' }, { value: 1, name: '天津市' }, { value: 2, name: '上海市' }, { value: 1, name: '河北省' }, { value: 1, name: '山西省' }, { value: 0, name: '辽宁省' }, { value: 1, name: '吉林省' }, { value: 0, name: '新疆' }, { value: 1, name: '西藏' }, { value: 0, name: '内蒙古' }, { value: 0, name: '四川省' }, { value: 0, name: '青海省' }, { value: 0, name: '广东省' }, { value: 0, name: '湖南省' }]
-                },
-                {
-                    name: '请假',
-                    type: 'bar',
-                    xAxisIndex: 1,
-                    yAxisIndex: 1,
-                    tooltip: {
-                        trigger: 'item',
-                        formatter: "{a} : {c}"
-                    },
-                    data: [1, 3, 2, 4, 1, 4, 3]
-                },
-                {
-                    name: '迟到',
-                    type: 'bar',
-                    xAxisIndex: 1,
-                    yAxisIndex: 1,
-                    tooltip: {
-                        trigger: 'item',
-                        formatter: "{a} : {c}"
-                    },
-                    data: [1, 2, 3, 4, 3, 2, 2]
-                },
-                {
-                    name: '早退',
-                    type: 'bar',
-                    xAxisIndex: 1,
-                    yAxisIndex: 1,
-                    tooltip: {
-                        trigger: 'item',
-                        formatter: "{a} : {c}"
-                    },
-                    data: [1, 2, 3, 4, 3, 2, 4]
-                },
-                {
-                    name: '调休',
-                    type: 'bar',
-                    xAxisIndex: 1,
-                    yAxisIndex: 1,
-                    tooltip: {
-                        trigger: 'item',
-                        formatter: "{a} : {c}"
-                    },
-                    data: [1, 3, 2, 4, 1, 4, 2]
-                },
-                {
-                    name: '加班',
-                    type: 'bar',
-                    xAxisIndex: 1,
-                    yAxisIndex: 1,
-                    tooltip: {
-                        trigger: 'item',
-                        formatter: "{a} : {c}"
-                    },
-                    data: [1, 3, 2, 4, 1, 4, 2]
-                },
-                {
-                    name: '旷工',
-                    type: 'bar',
-                    xAxisIndex: 1,
-                    yAxisIndex: 1,
-                    tooltip: {
-                        trigger: 'item',
-                        formatter: "{a} : {c}"
-                    },
-                    data: [1, 3, 2, 4, 1, 4, 2]
-                }
-            ]
-        };
-        myChart.setOption(option);
+                    ]
+                };
+                myChart.setOption(option);
             },
             onReady: function (instance, CountUp) {
                 return
@@ -1193,10 +1200,10 @@
         },
         mounted() {
             this.drawMultiChart2();
-         //   this.drawChart();
-           // this.drawMultiChart();
+            //   this.drawChart();
+            // this.drawMultiChart();
             //    this.drawMapChart();
-        //    this.chinaConfigure();
+            //    this.chinaConfigure();
         }
     }
 </script>
@@ -1228,14 +1235,16 @@
         background-position: center center;
         width: 400px;
     }
-.bottom-line{
-    width: 100%;
+
+    .bottom-line {
+        width: 100%;
         height: 30px;
-    background-image: url("~@/assets/images/bottomline.png");
+        background-image: url("~@/assets/images/bottomline.png");
         background-size: 100%;
         background-repeat: no-repeat;
         background-position: center center;
-}
+    }
+
     .box-content {
         display: block;
         padding: 10px 18px;
@@ -1265,12 +1274,13 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: #f2f2f2;
-        border-radius: 4px;
+        background: #3b4e82;
+        border-radius: 50%;
     }
 
     .icon-content .iconfont {
         font-size: 24px;
+        color: #fff;
     }
 
     .text-content {
@@ -1286,7 +1296,7 @@
     .statistic-item .sub-title {
         font-size: 14px;
         text-align: left;
-        color:rgb(154, 168, 212);
+        color: rgb(154, 168, 212);
     }
 
     .chart {
@@ -1382,7 +1392,14 @@
     .td_right {
         text-align: right;
     }
-    .chart-container{
+
+    .chart-container {
         height: 200px;
+    }
+
+
+    .box-content .title {
+        text-align: left;
+        color: #fff;
     }
 </style>
