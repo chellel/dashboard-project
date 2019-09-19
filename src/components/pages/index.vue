@@ -13,18 +13,18 @@
                 <div class="col-sm-12 col-md-12">
                     <div class="box-content">
                         <div class="statistic-box row">
-                            <div class="statistic-item col-md-6" v-for="item in [1,2,3,4,5,6]" v-bind:key="item">
+                            <div class="statistic-item col-md-6" v-for="item in indexData" v-bind:key="item">
                                 <div class="icon-content">
                                     <span class="iconfont icon-shuju"></span>
                                 </div>
                                 <div class="text-content">
                                     <div class="text">
                                         <span class="counter">
-                                            <ICountUp :delay="delay" :endVal="endVal" :options="options"
+                                            <ICountUp :delay="delay" :endVal="item.value" :options="options"
                                                 @ready="onReady" />
                                         </span>
                                     </div>
-                                    <div class="sub-title">指标</div>
+                                    <div class="sub-title">{{item.name}}</div>
                                 </div>
 
                             </div>
@@ -69,14 +69,20 @@
                     <div class="col-sm-12 col-md-12">
 
                         <div class="box-content">
-                              <div class="caption">
-                                <h3>销售总额</h3>
-                                <p>同比增长    </p>
-                                   </div>
+                            <div class="caption">
+                                <div class="main">
+                                    <h3>155852000 <small class="number warning">20.11%</small></h3>
+                                </div>
+                                <div>
+                                    <h6>销售额(万)(vs昨日销售额)</h6>
+                                </div>
+                            </div>
+                            <div ref="categoryChart" class="chart"></div>
                             <div ref="pieChart" class="chart"></div>
                             <div ref="lineChart" class="chart"></div>
+                            <div ref="barChart" class="chart"></div>
                             <div style="height:1000px;" id="mapContainer"></div>
-                          
+
                         </div>
                     </div>
                 </div>
@@ -93,16 +99,15 @@
     import ICountUp from 'vue-countup-v2'
     import 'echarts/map/js/china.js'
     import chinaJson from 'echarts/map/json/china.json'
+    // import sale from '../../../src/assets/js/sale.json'
 
-    function getXYData(data,property){
-            var res=[];
-            data.forEach(function(item){
-                res.push(item[property])
-            })
-            debugger
-
-            return res
-        }
+    function getXYData(data, property) {
+        var res = [];
+        data.forEach(function (item) {
+            res.push(item[property])
+        })
+        return res
+    }
 
     //饼图数据
     var pieData = [
@@ -238,8 +243,9 @@
     }
 
 
-
+    var textColor = "9AA8D4";
     var COLORS = ["#070093", "#1c3fbf", "#1482e5", "#70b4eb", "#b4e0f3", "#ffffff"];
+    var monthArray = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
 
     var multiChartOption = {
         title: {
@@ -683,12 +689,503 @@
                     suffix: ''
                 },
                 total: 100,
+                indexData: [{ name: '当前月销售额', value: 2341560 }, { name: '对比上月增长', value: 1582 }, { name: '总订单数', value: 2320 }, { name: '客户数', value: 1560 }, { name: '总客户数', value: 1560 }],
                 datalist: [
                     { ranking: 1, area: "广东", nValue: 1758000, yValue: 214589 },
                     { ranking: 1, area: "汕头", nValue: 175180, yValue: 145389 },
                     { ranking: 1, area: "潮汕", nValue: 174580, yValue: 142589 }
+                ],
+                //  sale: sale.data.result,
+                category: [{
+                    "categoryid": "1",
+                    "category": "自行车"
+                },
+                {
+                    "categoryid": "2",
+                    "category": "服装"
+                },
+                {
+                    "categoryid": "3",
+                    "category": "配件"
+                },
+                {
+                    "categoryid": "4",
+                    "category": "辅助用品"
+                }
+                ],
+                subcategory: [{
+                    "productid": "743",
+                    "product": "山地自行车",
+                    "subcategory": "山地自行车",
+                    "category": "自行车",
+                    "categoryid": "1"
+                },
+                {
+                    "productid": "745",
+                    "product": "山地自行车车架",
+                    "subcategory": "山地自行车车架",
+                    "category": "配件",
+                    "categoryid": "3"
+                },
+                {
+                    "productid": "709",
+                    "product": "公路自行车",
+                    "subcategory": "公路自行车",
+                    "category": "自行车",
+                    "categoryid": "1"
+                },
+                {
+                    "productid": "731",
+                    "product": "帽子",
+                    "subcategory": "帽子",
+                    "category": "服装",
+                    "categoryid": "2"
+                },
+                {
+                    "productid": "759",
+                    "product": "长袖运动衫",
+                    "subcategory": "运动衫",
+                    "category": "服装",
+                    "categoryid": "2"
+                },
+                {
+                    "productid": "758",
+                    "product": "运动头盔",
+                    "subcategory": "头盔",
+                    "category": "辅助用品",
+                    "categoryid": "4"
+                },
+                {
+                    "productid": "711",
+                    "product": "公路自行车车架",
+                    "subcategory": "公路自行车车架",
+                    "category": "配件",
+                    "categoryid": "3"
+                },
+                {
+                    "productid": "752",
+                    "product": "山地自行车袜子",
+                    "subcategory": "袜子",
+                    "category": "服装",
+                    "categoryid": "2"
+                },
+                {
+                    "productid": "750",
+                    "product": "山地自行车前轮",
+                    "subcategory": "车轮",
+                    "category": "配件",
+                    "categoryid": "3"
+                },
+                {
+                    "productid": "744",
+                    "product": "山地自行车车把",
+                    "subcategory": "车把",
+                    "category": "配件",
+                    "categoryid": "3"
+                },
+                {
+                    "productid": "748",
+                    "product": "山地自行车后轮",
+                    "subcategory": "车轮",
+                    "category": "配件",
+                    "categoryid": "3"
+                },
+                {
+                    "productid": "734",
+                    "product": "男士运动短裤",
+                    "subcategory": "短裤",
+                    "category": "服装",
+                    "categoryid": "2"
+                },
+                {
+                    "productid": "735",
+                    "product": "女士紧身衣",
+                    "subcategory": "紧身衣",
+                    "category": "服装",
+                    "categoryid": "2"
+                },
+                {
+                    "productid": "733",
+                    "product": "男士背带短裤",
+                    "subcategory": "背带短裤",
+                    "category": "服装",
+                    "categoryid": "2"
+                },
+                {
+                    "productid": "756",
+                    "product": "夏用手套",
+                    "subcategory": "手套",
+                    "category": "服装",
+                    "categoryid": "2"
+                },
+                {
+                    "productid": "705",
+                    "product": "冬用手套",
+                    "subcategory": "手套",
+                    "category": "服装",
+                    "categoryid": "2"
+                },
+                {
+                    "productid": "732",
+                    "product": "迷你气筒",
+                    "subcategory": "打气筒",
+                    "category": "辅助用品",
+                    "categoryid": "4"
+                },
+                {
+                    "productid": "713",
+                    "product": "公路自行车后轮",
+                    "subcategory": "车轮",
+                    "category": "配件",
+                    "categoryid": "3"
+                },
+                {
+                    "productid": "715",
+                    "product": "公路自行车前轮",
+                    "subcategory": "车轮",
+                    "category": "配件",
+                    "categoryid": "3"
+                },
+                {
+                    "productid": "710",
+                    "product": "公路自行车车把",
+                    "subcategory": "车把",
+                    "category": "配件",
+                    "categoryid": "3"
+                },
+                {
+                    "productid": "708",
+                    "product": "耳机",
+                    "subcategory": "耳机",
+                    "category": "配件",
+                    "categoryid": "3"
+                },
+                {
+                    "productid": "757",
+                    "product": "线缆锁",
+                    "subcategory": "车锁",
+                    "category": "辅助用品",
+                    "categoryid": "4"
+                },
+                {
+                    "productid": "740",
+                    "product": "前叉",
+                    "subcategory": "前叉",
+                    "category": "配件",
+                    "categoryid": "3"
+                },
+                {
+                    "productid": "749",
+                    "product": "山地自行车脚踏板",
+                    "subcategory": "脚踏板",
+                    "category": "配件",
+                    "categoryid": "3"
+                },
+                {
+                    "productid": "706",
+                    "product": "短袖经典运动衫",
+                    "subcategory": "运动衫",
+                    "category": "服装",
+                    "categoryid": "2"
+                },
+                {
+                    "productid": "721",
+                    "product": "经典背心",
+                    "subcategory": "背心",
+                    "category": "服装",
+                    "categoryid": "2"
+                },
+                {
+                    "productid": "738",
+                    "product": "骑行包",
+                    "subcategory": "骑行包",
+                    "category": "辅助用品",
+                    "categoryid": "4"
+                },
+                {
+                    "productid": "742",
+                    "product": "清洗剂",
+                    "subcategory": "清洗剂",
+                    "category": "辅助用品",
+                    "categoryid": "4"
+                },
+                {
+                    "productid": "702",
+                    "product": "车顶固定架",
+                    "subcategory": "货架",
+                    "category": "辅助用品",
+                    "categoryid": "4"
+                },
+                {
+                    "productid": "755",
+                    "product": "水壶",
+                    "subcategory": "水壶架",
+                    "category": "辅助用品",
+                    "categoryid": "4"
+                },
+                {
+                    "productid": "736",
+                    "product": "女士山地短裤",
+                    "subcategory": "短裤",
+                    "category": "服装",
+                    "categoryid": "2"
+                },
+                {
+                    "productid": "746",
+                    "product": "山地自行车车座",
+                    "subcategory": "车座",
+                    "category": "配件",
+                    "categoryid": "3"
+                },
+                {
+                    "productid": "724",
+                    "product": "旅游自行车",
+                    "subcategory": "旅游自行车",
+                    "category": "自行车",
+                    "categoryid": "1"
+                },
+                {
+                    "productid": "741",
+                    "product": "前刹车",
+                    "subcategory": "刹车",
+                    "category": "配件",
+                    "categoryid": "3"
+                },
+                {
+                    "productid": "739",
+                    "product": "前变速器",
+                    "subcategory": "变速器",
+                    "category": "配件",
+                    "categoryid": "3"
+                },
+                {
+                    "productid": "723",
+                    "product": "链条",
+                    "subcategory": "链条",
+                    "category": "配件",
+                    "categoryid": "3"
+                },
+                {
+                    "productid": "727",
+                    "product": "旅游自行车车座",
+                    "subcategory": "车座",
+                    "category": "配件",
+                    "categoryid": "3"
+                },
+                {
+                    "productid": "719",
+                    "product": "后变速器",
+                    "subcategory": "变速器",
+                    "category": "配件",
+                    "categoryid": "3"
+                },
+                {
+                    "productid": "726",
+                    "product": "旅游自行车车架",
+                    "subcategory": "旅游自行车车架",
+                    "category": "配件",
+                    "categoryid": "3"
+                },
+                {
+                    "productid": "703",
+                    "product": "大齿盘",
+                    "subcategory": "大齿盘",
+                    "category": "配件",
+                    "categoryid": "3"
+                },
+                {
+                    "productid": "720",
+                    "product": "后刹车",
+                    "subcategory": "刹车",
+                    "category": "配件",
+                    "categoryid": "3"
+                },
+                {
+                    "productid": "725",
+                    "product": "旅游自行车车把",
+                    "subcategory": "车把",
+                    "category": "配件",
+                    "categoryid": "3"
+                },
+                {
+                    "productid": "704",
+                    "product": "底托架",
+                    "subcategory": "中轴",
+                    "category": "配件",
+                    "categoryid": "3"
+                },
+                {
+                    "productid": "714",
+                    "product": "公路自行车脚踏板",
+                    "subcategory": "脚踏板",
+                    "category": "配件",
+                    "categoryid": "3"
+                },
+                {
+                    "productid": "722",
+                    "product": "竞速袜",
+                    "subcategory": "袜子",
+                    "category": "服装",
+                    "categoryid": "2"
+                },
+                {
+                    "productid": "737",
+                    "product": "女士山地自行车短裤",
+                    "subcategory": "短裤",
+                    "category": "服装",
+                    "categoryid": "2"
+                },
+                {
+                    "productid": "701",
+                    "product": "补胎套件",
+                    "subcategory": "内外胎",
+                    "category": "辅助用品",
+                    "categoryid": "4"
+                },
+                {
+                    "productid": "712",
+                    "product": "公路自行车车座",
+                    "subcategory": "车座",
+                    "category": "配件",
+                    "categoryid": "3"
+                },
+                {
+                    "productid": "728",
+                    "product": "旅游自行车脚踏板",
+                    "subcategory": "脚踏板",
+                    "category": "配件",
+                    "categoryid": "3"
+                },
+                {
+                    "productid": "716",
+                    "product": "公路自行车水壶架",
+                    "subcategory": "水壶架",
+                    "category": "辅助用品",
+                    "categoryid": "4"
+                },
+                {
+                    "productid": "751",
+                    "product": "山地自行车水壶架",
+                    "subcategory": "水壶架",
+                    "category": "辅助用品",
+                    "categoryid": "4"
+                },
+                {
+                    "productid": "717",
+                    "product": "公路自行车外胎",
+                    "subcategory": "内外胎",
+                    "category": "辅助用品",
+                    "categoryid": "4"
+                },
+                {
+                    "productid": "718",
+                    "product": "公路自行车外胎内胎",
+                    "subcategory": "内外胎",
+                    "category": "辅助用品",
+                    "categoryid": "4"
+                },
+                {
+                    "productid": "707",
+                    "product": "多用途支架",
+                    "subcategory": "支架",
+                    "category": "辅助用品",
+                    "categoryid": "4"
+                },
+                {
+                    "productid": "753",
+                    "product": "山地自行车外胎",
+                    "subcategory": "内外胎",
+                    "category": "辅助用品",
+                    "categoryid": "4"
+                },
+                {
+                    "productid": "754",
+                    "product": "山地自行车外胎内胎",
+                    "subcategory": "内外胎",
+                    "category": "辅助用品",
+                    "categoryid": "4"
+                },
+                {
+                    "productid": "729",
+                    "product": "旅游自行车外胎",
+                    "subcategory": "内外胎",
+                    "category": "辅助用品",
+                    "categoryid": "4"
+                },
+                {
+                    "productid": "730",
+                    "product": "旅游自行车外胎内胎",
+                    "subcategory": "内外胎",
+                    "category": "辅助用品",
+                    "categoryid": "4"
+                },
+                {
+                    "productid": "747",
+                    "product": "山地自行车挡泥板",
+                    "subcategory": "挡泥板",
+                    "category": "辅助用品",
+                    "categoryid": "4"
+                },
+
+                ],
+                subCategorySaleData: [{ "province": "广东", "value": 199425 }, { "province": "福建", "value": 164133 }, { "province": "江苏", "value": 160782 }, { "province": "湖南", "value": 280300 }, { "province": "北京", "value": 253081 }, { "province": "四川", "value": 232221 }, { "province": "甘肃", "value": 334846 }, { "province": "新疆", "value": 150796 }, { "province": "吉林", "value": 139778 }, { "province": "海南", "value": 152369 }, { "province": "辽宁", "value": 299327 }, { "province": "天津", "value": 201057 }, { "province": "西藏", "value": 131962 }, { "province": "河北", "value": 199834 }, { "province": "湖北", "value": 152413 }, { "province": "广西", "value": 100364 }, { "province": "青海", "value": 140823 }, { "province": "上海", "value": 191918 }, { "province": "贵州", "value": 94650 }, { "province": "陕西", "value": 104321 }, { "province": "宁夏", "value": 125371 }, { "province": "安徽", "value": 464109 }, { "province": "重庆", "value": 111396 }, { "province": "云南", "value": 129407 }, { "province": "内蒙古", "value": 160949 }, { "province": "江西", "value": 113205 }, { "province": "山西", "value": 52035 }, { "province": "浙江", "value": 128498 }, { "province": "山东", "value": 216002 }, { "province": "黑龙江", "value": 79891 }, { "province": "河南", "value": 54682 }],
+                categorySale: [{
+                    "category": "自行车",
+                    "value": 5095558
+                }, {
+                    "category": "配件",
+                    "value": 205763
+                }, {
+                    "category": "服装",
+                    "value": 12896
+                }, {
+                    "category": "辅助用品",
+                    "value": 5728
+                }],
+                subCategorySale: [
+                    { name: '冬用手套', value: 92345.33 },
+                    { name: '耳机', value: 41921.75 },
+                    { name: '公路自行车', value: 17232466.67 },
+                    { name: '公路自行车车把', value: 19162.74 },
+                    { name: '公路自行车车架', value: 1692677.66 },
+                    { name: '公路自行车后轮', value: 70267.58 },
+                    { name: '公路自行车前轮', value: 136291.26 },
+                    { name: '帽子', value: 10478.11 },
+                    { name: '迷你气筒', value: 9486.85 },
+                    { name: '男士背带短裤', value: 117193.08 },
+                    { name: '男士运动短裤', value: 56870.52 },
+                    { name: '女士紧身衣', value: 141553.37 },
+                    { name: '前叉', value: 55493.04 },
+                    { name: '山地自行车', value: 11933122.51 },
+                    { name: '山地自行车车把', value: 38364.18 },
+                    { name: '山地自行车车架', value: 1541453.95 },
+                    { name: '山地自行车后轮', value: 212537.95 },
+                    { name: '山地自行车前轮', value: 73549.67 },
+                    { name: '山地自行车袜子', value: 2916.98 },
+                    { name: '夏用手套', value: 16866.61 },
+                    { name: '线缆锁', value: 11560 },
+                    { name: '运动头盔', value: 82454.45 },
+                    { name: '长袖运动衫', value: 121862.68 },
+               //     { name: '总计', value: 33710896.94 }
+                ],
+                monthSale: [
+                    { name: '1月', value: 3970636.431 },
+                    { name: '2月', value: 1475538.359 },
+                    { name: '3月', value: 2976353.267 },
+                    { name: '4月', value: 1770047.398 },
+                    { name: '5月', value: 3092481.872 },
+                    { name: '6月', value: 4114089.254 },
+                    { name: '7月', value: 3427252.401 },
+                    { name: '8月', value: 2177666.754 },
+                    { name: '9月', value: 3455342.385 },
+                    { name: '10月', value: 2547092.007 },
+                    { name: '11月', value: 1873757.517 },
+                    { name: '12月', value: 2830639.294 },
+                  //  { name: '总计', value: 33710896.94 }
                 ]
             }
+
+
         },
         methods: {
             drawChart() {
@@ -1195,145 +1692,374 @@
                 const that = this
                 instance.update(that.endVal + 100)
             },
-            getData() {
-                axios.get('https://easy-mock.com/mock/5d721076b158cf18134a822b/dashboard/getSales').then(res => {
+            getCategoryData() {
+                axios.get('https://easy-mock.com/mock/5d721076b158cf18134a822b/dashboard/category').then(res => {
                     debugger
                 })
             },
-            drawPieChart(){
-             
-           var firstCategory=[{
-        "categoryid": "1",
-        "category": "自行车",
-        value:4045288
-      },
-      {
-        "categoryid": "2",
-        "category": "服装",
-        value:41045288
-      },
-      {
-        "categoryid": "3",
-        "category": "配件",
-        value:45288
-      },
-      {
-        "categoryid": "4",
-        "category": "辅助用品",
-        value:435288
-      }
-    ];
-            var option = {
-    title: {
-        text: '产品分类占比',
-        subtext: '一级产品分类',
-        left: 'center'
-    },
-    tooltip : {
-        trigger: 'item',
-        formatter:function(params){
-return `${params.data.category} 销售额：<br/>${params.data.value}元(${params.percent}%)`;
-        }
-    },
-    legend: {
-        // orient: 'vertical',
-        // top: 'middle',
-        bottom: 10,
-        left: 'center',
-        data: (function getXYData(data,property){
-            var data=firstCategory;
-            var property="category";
-            var res=[];
-            data.forEach(function(item){
-                res.push(item[property])
-            })
-            return res
-        })()
-    },
-    series : [
-        {
-            type: 'pie',
-            radius : '65%',
-            center: ['50%', '50%'],
-            selectedMode: 'single',
-            data:firstCategory,
-            itemStyle: {
-                emphasis: {
-                    shadowBlur: 10,
-                    shadowOffsetX: 0,
-                    shadowColor: 'rgba(0, 0, 0, 0.5)'
-                }
-            }
-        }
-    ]
-};
-let myChart = this.$echarts.init(this.$refs.pieChart);
+            drawPieChart() {
+
+                var categorySale = this.categorySale;
+                var option = {
+                    title: {
+                        text: '销售额（万）（按一级分类）',
+                        left: 'center',
+                        textStyle: {
+                            color: '#9AA8D4'
+                        }
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: function (params) {
+                            return `${params.data.category} 
+                            <br/>${params.data.value}元(${params.percent}%)`;
+                        }
+                    },
+                    legend: {
+                        // orient: 'vertical',
+                        // top: 'middle',
+                        bottom: 10,
+                        left: 'center',
+                        data: (function getXYData(data, property) {
+                            var data = categorySale;
+                            var property = "category";
+                            var res = [];
+                            data.forEach(function (item) {
+                                res.push(item[property])
+                            })
+                            return res
+                        })()
+                    },
+                    series: [
+                        {
+                            type: 'pie',
+                            radius: '50%',
+                            center: ['50%', '50%'],
+                            selectedMode: 'single',
+                            data: categorySale,
+                            label: {
+                                show: true,
+                                formatter: '{b}'
+                            },
+                            itemStyle: {
+                                emphasis: {
+                                    shadowBlur: 10,
+                                    shadowOffsetX: 0,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                }
+                            }
+                        }
+                    ]
+                };
+                let myChart = this.$echarts.init(this.$refs.pieChart);
                 window.onresize = myChart.resize;
                 myChart.setOption(option)
             },
-            drawLineChart(){
-                var monthsales=[
-{ "month": "一", "amount": "6058854" },
-{ "month": "二", "amount": "3795622" },
-{ "month": "三", "amount": "6390316" },
-{ "month": "四", "amount": "4304697" },
-{ "month": "五", "amount": "6401637" },
-{ "month": "六", "amount": "9288771" },
-{ "month": "七", "amount": "8429464" },
-{ "month": "八", "amount": "5522733" },
-{ "month": "九", "amount": "7995554" },
-{ "month": "十", "amount": "7348953" },
-{ "month": "十一", "amount": "5187540" },
-{ "month": "十二", "amount": "6908795" },
+            drawLineChart() {
 
-    ]
-
+                var monthSale = this.monthSale;
                 var option = {
                     title: {
-        text: '月销售额',
-        left: 'center'
-    },
-    tooltip : {
-        trigger: 'item',
-        formatter: "{b}月份 {a}  <br/> {c}元"
-    },
-    xAxis: {
-        type: 'category',
-        data: (function(){
-            var res=[];
-            monthsales.forEach(function(item){
-                res.push(item.month)
-            })
-            return res
+                        text: '月销售额（万）',
+                        left: 'center',
+                        textStyle: {
+                            color: '#9AA8D4'
+                        }
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: "{b}月份 {a}  <br/> {c}元"
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: monthArray
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [{
+                        name: "销售额",
+                        data: (function () {
+                            var res = [];
+                            monthSale.forEach(function (item) {
+                                res.push(item.value)
+                            })
+                            return res
 
-        })()
-    },
-    yAxis: {
-        type: 'value'
-    },
-    series: [{
-        name:"销售额",
-        data: (function(){
-            var res=[];
-            monthsales.forEach(function(item){
-                res.push(item.amount)
-            })
-            return res
-
-        })(),
-        type: 'line'
-    }]
-};
-let myChart = this.$echarts.init(this.$refs.lineChart);
+                        })(),
+                        type: 'line'
+                    }]
+                };
+                let myChart = this.$echarts.init(this.$refs.lineChart);
                 window.onresize = myChart.resize;
                 myChart.setOption(option)
+            },
+            drawBarChart() {
+                var monthsales = [
+                    { "month": "1", "amount": "6058854" },
+                    { "month": "2", "amount": "3795622" },
+                    { "month": "3", "amount": "6390316" },
+                    { "month": "4", "amount": "4304697" },
+                    { "month": "5", "amount": "6401637" },
+                    { "month": "6", "amount": "9288771" },
+                    { "month": "7", "amount": "8429464" },
+                    { "month": "8", "amount": "5522733" },
+                    { "month": "9", "amount": "7995554" },
+                    { "month": "10", "amount": "7348953" },
+                    { "month": "11", "amount": "5187540" },
+                    { "month": "12", "amount": "6908795" },
+
+                ];
+                var option = {
+                    color: ['#3398DB'],
+                    title: {
+                        text: '月销售额',
+                    },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data: ['月份']
+                    },
+                    toolbox: {
+                        show: true,
+                        feature: {
+                            magicType: { show: true, type: ['line', 'bar'] },
+                            saveAsImage: { show: true }
+                        }
+                    },
+                    calculable: true,
+                    xAxis: [
+                        {
+                            type: 'category',
+                            data: monthArray
+                        }
+                    ],
+                    yAxis: [
+                        {
+                            type: 'value'
+                        }
+                    ],
+                    series: [
+                        {
+                            name: '月销售额',
+                            type: 'bar',
+                            data: (function getXYData() {
+                                var data = monthsales;
+                                var property = "value";
+                                var res = [];
+                                data.forEach(function (item) {
+                                    res.push(item[property])
+                                })
+                                return res
+                            })(),
+                            markPoint: {
+                                data: [
+                                    { type: 'max', name: '最大值' },
+                                    { type: 'min', name: '最小值' }
+                                ]
+                            },
+                            markLine: {
+                                data: [
+                                    { type: 'average', name: '平均值' }
+                                ]
+                            }
+                        }
+                    ]
+                };
+                let myChart = this.$echarts.init(this.$refs.barChart);
+                window.onresize = myChart.resize;
+                myChart.setOption(option)
+            },
+            drawCategorybyMonth() {
+                var category = this.category;
+                var option = {
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                        }
+                    },
+                    legend: {
+                        data: (function getXYData(data, property) {
+                            var data = category; var property = "category";
+                            var res = [];
+                            data.forEach(function (item) {
+                                res.push(item[property])
+                            })
+                            debugger
+                            return res
+                        })(),
+                        textStyle: {
+                            color: textColor
+                        }
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    yAxis: {
+                        type: 'value',
+                        nameTextStyle: {
+                            color: "#fff"
+                        }
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: monthArray,
+                        nameTextStyle: {
+                            color: "#3398DB"
+                        }
+                    },
+                    series: [
+                        {
+                            name: '自行车',
+                            type: 'bar',
+                            stack: '总量',
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'insideRight'
+                                }
+                            },
+                            data: [320, 302, 301, 334, 390, 330, 320]
+                        },
+                        {
+                            name: '服装',
+                            type: 'bar',
+                            stack: '总量',
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'insideRight'
+                                }
+                            },
+                            data: [120, 132, 101, 134, 90, 230, 210]
+                        },
+                        {
+                            name: '配件',
+                            type: 'bar',
+                            stack: '总量',
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'insideRight'
+                                }
+                            },
+                            data: [220, 182, 191, 234, 290, 330, 310]
+                        },
+                        {
+                            name: '辅助用品',
+                            type: 'bar',
+                            stack: '总量',
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'insideRight'
+                                }
+                            },
+                            data: [150, 212, 201, 154, 190, 330, 410]
+                        }
+
+                    ]
+                };
+                let myChart = this.$echarts.init(this.$refs.categoryChart);
+                window.onresize = myChart.resize;
+                myChart.setOption(option)
+            },
+            getClassifyData(groupby) {
+                var sales = this.formatData(this.sale);
+
+                var result = []; var map = {};
+
+                sales.forEach(item => {
+                    //var groupby = "category";
+                    if (!map[item[groupby]]) {
+                        result.push({
+                            [groupby]: item[groupby],
+                            value: item.value
+                            // items: [item]
+                        });
+                        map[item[groupby]] = item;
+                    } else {
+                        if (result.length > 0) {
+                            var destItem = result.find(m => m[groupby] == item[groupby]);
+                            destItem.value += item.value;
+                            //  destItem.items.push(item)
+                        }
+                    }
+                })
+                return result;
+                /* var result = []; var map = {};
+ 
+ sales.forEach(item => {
+     var groupby = "month";
+     var itemitem = [];
+     var mapitem = [];
+     if (!map[item[groupby]]) {
+         var category = item.category;
+ 
+         mapitem.push({ category: category, amount: item.amount })
+ 
+         result.push({
+             [groupby]: item[groupby],
+             items: mapitem,
+             amount: item.amount,
+            
+         });
+ 
+         map[item[groupby]] = {};
+         map[item[groupby]]["item"] = item;
+         map[item[groupby]]["itemitem"] = mapitem;
+     } else {
+         if (result.length > 0) {
+             var destItem = result.find(m => m[groupby] == item[groupby]);
+             destItem.amount += item.amount;
+             var category = item.category;
+             var mapitem = destItem.items.find(m => m.category == category);
+             if (!mapitem) {
+                 destItem.items.push({ category: category, amount: item.amount })
+             } else {
+                 mapitem.amount += item.amount;
+             }
+             return
+         }
+     }
+ })
+    
+                 return result;*/
+            },
+            formatData() {
+
+                var sales = this.sale;
+                sales.map((i) => {
+                    i.quantity = parseInt(i.quantity);
+                    var d = i.unitprice.replace(",", "");
+                    i.unitprice = parseInt(i.unitprice.replace(",", ""))
+                    i.amount = parseInt(i.amount.replace(",", ""))
+                    i.month = i.orderdate.split("/")[1];
+                    var subcategory = this.subcategory;
+                    var categoryTemp = subcategory.find(m => m.productid == i.productid);
+                    if (categoryTemp != undefined) {
+                        i.categoryid = categoryTemp.categoryid;
+                        i.category = categoryTemp.category;
+                        i.subcategory = categoryTemp.subcategory;
+                    }
+                    return i;
+                })
+                return sales;
             }
 
         },
         mounted() {
+           // this.getCategoryData();
+            this.drawCategorybyMonth();
             this.drawPieChart();
+            this.drawBarChart();
             this.drawLineChart();
-            this.drawMultiChart2();
+            //    this.drawMultiChart2();
             //   this.drawChart();
             // this.drawMultiChart();
             //    this.drawMapChart();
@@ -1381,7 +2107,6 @@ let myChart = this.$echarts.init(this.$refs.lineChart);
 
     .box-content {
         display: block;
-        padding: 10px 18px;
         margin-bottom: 20px;
         line-height: 1.42857143;
         -webkit-transition: border 0.2s ease-in-out;
@@ -1434,7 +2159,7 @@ let myChart = this.$echarts.init(this.$refs.lineChart);
     }
 
     .chart {
-        height: 400px;
+        height: 300px;
     }
 
     .echart {
@@ -1535,5 +2260,14 @@ let myChart = this.$echarts.init(this.$refs.lineChart);
     .box-content .caption {
         text-align: left;
         color: #fff;
+    }
+
+    small.number {
+        color: #0b8603;
+        font-weight: bold;
+    }
+
+    .warning {
+        color: red;
     }
 </style>
