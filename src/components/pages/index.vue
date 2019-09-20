@@ -2,7 +2,7 @@
     <div class="page">
         <div class="header">
             <div class="title">
-                2019年度实时销售总览
+                2019年度销售总览
             </div>
             <div class="title-bottom">
                 <div class="bottom-sidebar"></div>
@@ -77,7 +77,7 @@
                                     <h6>销售额(万)(vs昨日销售额)</h6>
                                 </div>
                             </div>
-                            <div ref="categoryChart" class="chart"></div>
+                            <div ref="categoryChart" style="height: 1000px" class="chart"></div>
                             <div ref="pieChart" class="chart"></div>
                             <div ref="lineChart" class="chart"></div>
                             <div ref="barChart" class="chart"></div>
@@ -1166,7 +1166,7 @@
                     { name: '线缆锁', value: 11560 },
                     { name: '运动头盔', value: 82454.45 },
                     { name: '长袖运动衫', value: 121862.68 },
-               //     { name: '总计', value: 33710896.94 }
+                    //     { name: '总计', value: 33710896.94 }
                 ],
                 monthSale: [
                     { name: '1月', value: 3970636.431 },
@@ -1181,10 +1181,11 @@
                     { name: '10月', value: 2547092.007 },
                     { name: '11月', value: 1873757.517 },
                     { name: '12月', value: 2830639.294 },
-                  //  { name: '总计', value: 33710896.94 }
-                ]
+                    //  { name: '总计', value: 33710896.94 }
+                ],
+                monthCategoryData:{"自行车":[3804873,1406479,2789916,1617347,2498571,3191726,5888426,2988027,2896038,2095279,1727802,2600005],"配件":[151345,63623,171325,141297,508413,799577,1108360,558939,474022,376664,111145,183231],"服装":[10057,3658,9528,7123,74176,104206,168064,125808,72679,65051,42341,54097],"辅助用品":[4360,1776,5582,4279,11319,18578,17506,24614,12602,10096,4726,5563]}
             }
-
+              //  monthCategoryData: [{"name":"1月","items":[{"category":"1","name":"自行车","value":3804873.102},{"category":"3","name":"配件","value":151345.70369999998},{"category":"2","name":"服装","value":10057.342},{"category":"4","name":"辅助用品","value":4360.284}]},{"name":"2月","items":[{"category":"1","name":"自行车","value":1406479.6561},{"category":"3","name":"配件","value":63623.648},{"category":"2","name":"服装","value":3658.6428},{"category":"4","name":"辅助用品","value":1776.412}]},{"name":"3月","items":[{"category":"1","name":"自行车","value":2789916.613},{"category":"3","name":"配件","value":171325.62079999998},{"category":"2","name":"服装","value":9528.1197},{"category":"4","name":"辅助用品","value":5582.9128}]},{"name":"4月","items":[{"category":"1","name":"自行车","value":1617347.2740000002},{"category":"3","name":"配件","value":141297.3023},{"category":"2","name":"服装","value":7123.2834},{"category":"4","name":"辅助用品","value":4279.538}]},{"name":"5月","items":[{"category":"2","name":"服装","value":74176.75589999999},{"category":"3","name":"配件","value":508413.7611999999},{"category":"1","name":"自行车","value":2498571.606},{"category":"4","name":"辅助用品","value":11319.7482}]},{"name":"6月","items":[{"category":"2","name":"服装","value":104206.8286},{"category":"3","name":"配件","value":799577.1469},{"category":"1","name":"自行车","value":3191726.3880000003},{"category":"4","name":"辅助用品","value":18578.891300000003}]},{"name":"7月","items":[{"category":"2","name":"服装","value":168064.72689999998},{"category":"3","name":"配件","value":1108360.5566000002},{"category":"1","name":"自行车","value":5888426.419000001},{"category":"4","name":"辅助用品","value":17506.2486}]},{"name":"8月","items":[{"category":"2","name":"服装","value":125808.0117},{"category":"3","name":"配件","value":558939.5143},{"category":"1","name":"自行车","value":2988027.6212},{"category":"4","name":"辅助用品","value":24614.8185}]},{"name":"9月","items":[{"category":"2","name":"服装","value":72679.6351},{"category":"3","name":"配件","value":474022.54800000007},{"category":"1","name":"自行车","value":2896038.057},{"category":"4","name":"辅助用品","value":12602.145100000002}]},{"name":"10月","items":[{"category":"2","name":"服装","value":65051.4763},{"category":"3","name":"配件","value":376664.3716},{"category":"1","name":"自行车","value":2095279.4780000001},{"category":"4","name":"辅助用品","value":10096.681}]},{"name":"11月","items":[{"category":"2","name":"服装","value":42341.2166},{"category":"3","name":"配件","value":111145.17439999999},{"category":"1","name":"自行车","value":1727802.9057},{"category":"4","name":"辅助用品","value":4726.8275}]},{"name":"12月","items":[{"category":"2","name":"服装","value":54097.6215},{"category":"3","name":"配件","value":183231.4208},{"category":"1","name":"自行车","value":2600005.8090000004},{"category":"4","name":"辅助用品","value":5563.049999999999}]}] }
 
         },
         methods: {
@@ -1694,7 +1695,7 @@
             },
             getCategoryData() {
                 axios.get('https://easy-mock.com/mock/5d721076b158cf18134a822b/dashboard/category').then(res => {
-                    debugger
+
                 })
             },
             drawPieChart() {
@@ -1795,21 +1796,7 @@
                 myChart.setOption(option)
             },
             drawBarChart() {
-                var monthsales = [
-                    { "month": "1", "amount": "6058854" },
-                    { "month": "2", "amount": "3795622" },
-                    { "month": "3", "amount": "6390316" },
-                    { "month": "4", "amount": "4304697" },
-                    { "month": "5", "amount": "6401637" },
-                    { "month": "6", "amount": "9288771" },
-                    { "month": "7", "amount": "8429464" },
-                    { "month": "8", "amount": "5522733" },
-                    { "month": "9", "amount": "7995554" },
-                    { "month": "10", "amount": "7348953" },
-                    { "month": "11", "amount": "5187540" },
-                    { "month": "12", "amount": "6908795" },
-
-                ];
+                var monthSale =this.monthSale;
                 var option = {
                     color: ['#3398DB'],
                     title: {
@@ -1845,7 +1832,7 @@
                             name: '月销售额',
                             type: 'bar',
                             data: (function getXYData() {
-                                var data = monthsales;
+                                var data = monthSale;
                                 var property = "value";
                                 var res = [];
                                 data.forEach(function (item) {
@@ -1873,6 +1860,7 @@
             },
             drawCategorybyMonth() {
                 var category = this.category;
+                var monthCategoryData=this.monthCategoryData;
                 var option = {
                     tooltip: {
                         trigger: 'axis',
@@ -1887,7 +1875,7 @@
                             data.forEach(function (item) {
                                 res.push(item[property])
                             })
-                            debugger
+
                             return res
                         })(),
                         textStyle: {
@@ -1900,13 +1888,13 @@
                         bottom: '3%',
                         containLabel: true
                     },
-                    yAxis: {
+                    xAxis: {
                         type: 'value',
                         nameTextStyle: {
                             color: "#fff"
                         }
                     },
-                    xAxis: {
+                    yAxis: {
                         type: 'category',
                         data: monthArray,
                         nameTextStyle: {
@@ -1924,7 +1912,7 @@
                                     position: 'insideRight'
                                 }
                             },
-                            data: [320, 302, 301, 334, 390, 330, 320]
+                            data: monthCategoryData["自行车"]
                         },
                         {
                             name: '服装',
@@ -1936,7 +1924,7 @@
                                     position: 'insideRight'
                                 }
                             },
-                            data: [120, 132, 101, 134, 90, 230, 210]
+                            data: monthCategoryData["服装"]
                         },
                         {
                             name: '配件',
@@ -1948,7 +1936,7 @@
                                     position: 'insideRight'
                                 }
                             },
-                            data: [220, 182, 191, 234, 290, 330, 310]
+                            data: monthCategoryData["配件"]
                         },
                         {
                             name: '辅助用品',
@@ -1960,7 +1948,7 @@
                                     position: 'insideRight'
                                 }
                             },
-                            data: [150, 212, 201, 154, 190, 330, 410]
+                            data: monthCategoryData["辅助用品"]
                         }
 
                     ]
@@ -2050,16 +2038,73 @@
                     return i;
                 })
                 return sales;
+            },
+            formatMonthCategoryData(){
+                var monthCategoryData = this.monthCategoryData;
+            var subcategory = this.subcategory;
+            var result = [];
+            monthCategoryData.forEach(item => {
+                result.push({
+                            name: item.name,
+                            items: []
+                        })
+            var map = {};
+                item.items.forEach(itemitem => {
+                    var category = subcategory.find(m => m.productid == itemitem.productid)
+                    var categoryid = category.categoryid;
+                    if (!map[categoryid]) {
+                        map[categoryid] = itemitem;
+                        var dept = result.find(m => m.name == item.name);
+                  
+                        dept.items.push({
+                                category: categoryid,
+                                name:category.category,
+                                value: itemitem.value
+                            })
+                    } else {
+                        var dept = result.find(m => m.name == item.name);
+                        var deptdept = dept.items.find(m => m.category == categoryid);
+                        if (!deptdept)
+                            dept.items.push({
+                                category: categoryid,
+                                name:category.category,
+                                value: itemitem.value
+                            })
+                        else
+                            deptdept.value += itemitem.value;
+
+                    }
+                })
+            })
+            console.log(JSON.stringify(result))
+
+            },
+            getbarData(){
+                var monthCategoryData=this.monthCategoryData;
+                var result={};
+                monthCategoryData.forEach(function(item,index){
+                    {
+                    item.items.forEach(itemitem=>{
+                        if(!result[itemitem.name])
+                        result[itemitem.name]=[];
+                        result[itemitem.name][index]=parseInt(itemitem.value.toFixed(2));
+                    })
+                }
+                })
+                console.log(JSON.stringify(result))
             }
+
 
         },
         mounted() {
-           // this.getCategoryData();
+            // this.getCategoryData();
             this.drawCategorybyMonth();
             this.drawPieChart();
             this.drawBarChart();
             this.drawLineChart();
-            //    this.drawMultiChart2();
+   // this.formatMonthCategoryData();
+//this.getbarData();
+             this.drawMultiChart2();
             //   this.drawChart();
             // this.drawMultiChart();
             //    this.drawMapChart();
