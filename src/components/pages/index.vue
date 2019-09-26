@@ -113,7 +113,7 @@
     var desc = function(x, y) {
       return (Number(x[Order]) < Number(y[Order])) ? 1 : -1
     }
-    /** 将数值转换为万元 */
+    /** 将数值转换为万单位的数值 */
     function formatLargeNumber(num){
         num=num/10000;
         num=num.toFixed(2);
