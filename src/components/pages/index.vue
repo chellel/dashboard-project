@@ -14,7 +14,7 @@
                     <div class="col-sm-12 col-md-12">
                         <div class="box-content">
                             <div class="statistic-box row">
-                                <div class="statistic-item col-md-6" v-for="item in indexData" v-bind:key="item">
+                                <div class="statistic-item col-md-6" v-for="item in indexData" v-bind:key="item.name">
                                     <div class="icon-content">
                                         <span class="iconfont icon-shuju"></span>
                                     </div>
@@ -34,6 +34,8 @@
     
                         </div>
                     </div>
+                    <div ref="multiPieChart" style="height: 500px"  class="chart"></div>
+
                     <div class="col-md-12">
                         <table class="table border-table darkblue" style="width: 100%" cellpadding="0" cellspacing="0">
                             <tr>
@@ -47,7 +49,7 @@
                                 </td>
                                 <!--<th>二级部门</th>-->
                             </tr>
-                            <tr v-for="(item,index) in datalist">
+                            <tr v-for="(item,index) in datalist" :key="item.id">
                                 <td class="border_bottom border_left_no">{{index+1}}</td>
                                 <td class="border_bottom enable" @click='tdSelect(item)'>
                                     {{item.area}}
@@ -61,6 +63,8 @@
                                 </td>
                             </tr>
                         </table>
+                                <div ref="pieChart" class="chart"></div>
+
                     </div>
     
                 </div>
@@ -80,13 +84,10 @@
                                         <h6>年销售额(万)(vs去年销售额)</h6>
                                     </div>
                                 </div>
-            <div style="height:700px;" id="mapContainer"></div>
+            <div style="height:400px;" id="mapContainer"></div>
                                 <div ref="categoryChart" style="height: 400px" class="chart"></div>
-                                <div ref="pieChart" class="chart"></div>
-                                <div ref="multiPieChart" style="height: 500px"  class="chart"></div>
-                                <div ref="lineChart" class="chart"></div>
-                                <div ref="barChart" class="chart"></div>
                                 
+                                <div ref="barChart" class="chart"></div>
                             </div>
                         </div>
                     </div>
@@ -1214,12 +1215,12 @@ var data=JSON.parse(JSON.stringify(originData))
                     { start: 100, end: 150 }, { start: 50, end: 100 },
                     { start: 0, end: 50 }
                 ],
-                color: ['#9fb5ea','#F4E925','#85daef', '#74e2ca', '#e6ac53']
+               color: ['#9fb5ea','#F4E925','#85daef', '#74e2ca', '#e6ac53']
             },
                         //布局
                         grid: [
-                            { x: '55%', y: '5%', width: '40%', height: '40%' },
-                            { x: '50%', bottom: '5%', width: '40%', height: '25%' }
+                            { x: '55%', y: '5%', width: '40%', height: '90%' },
+                          //  { x: '50%', bottom: '5%', width: '40%', height: '25%' }
                         ],
                         xAxis: [{
                             gridIndex: 0,
@@ -1289,9 +1290,8 @@ var data=JSON.parse(JSON.stringify(originData))
                             }
                         },
                         //调整显示级别
-                        layoutCenter: ['25%', '22%'],
+                        layoutCenter: ['25%', '50%'],  
                         layoutSize: 400,
-    
                         series: [
                         {
             name: '销售额',
@@ -1352,7 +1352,7 @@ return a.value[2]+"万元";
                                 },
             zlevel: 1
         },
-        {
+      /*  {
                                 type: 'pie',
                                 z: 2,
                                 selectedMode: 'single',
@@ -1382,7 +1382,7 @@ return a.value[2]+"万元";
                                         shadowColor: 'rgba(0, 0, 0, 0.5)'
                                     }
                                 }
-                            },
+                            },*/
                          {
                                 id: 'bar',
                                 name: '年销售额按省份',
@@ -1510,6 +1510,7 @@ return a.value[2]+"万元";
                                 color: '#9AA8D4'
                             }
                         },
+                        
                         tooltip: {
                             trigger: 'item',
                             formatter: function (params) {
@@ -1517,21 +1518,7 @@ return a.value[2]+"万元";
                                 <br/>${params.data.value}元(${params.percent}%)`;
                             }
                         },
-                        legend: {
-                            // orient: 'vertical',
-                            // top: 'middle',
-                            bottom: 10,
-                            left: 'center',
-                            data: (function getXYData(data, property) {
-                                var data = categorySale;
-                                var property = "category";
-                                var res = [];
-                                data.forEach(function (item) {
-                                    res.push(item[property])
-                                })
-                                return res
-                            })()
-                        },
+                       
                         series: [
                             {
                                 type: 'pie',
@@ -1541,7 +1528,11 @@ return a.value[2]+"万元";
                                 data: categorySale,
                                 label: {
                                     show: true,
-                                    formatter: '{b}'
+                                    formatter: function(res){
+                                        
+                                        return res.data.category;
+
+                                    }
                                 },
                                 itemStyle: {
                                     emphasis: {
@@ -1572,24 +1563,24 @@ return a.value[2]+"万元";
       
         series: [{
             type: 'pie',
-            radius: 60,
-            center: ['25%', '30%'],
+            radius: 50,
+            center: ['25%', '20%'],
             data: categoryClassifyData[0].data
             // No encode specified, by default, it is '2012'.
         }, {
             type: 'pie',
-            radius: 60,
-            center: ['75%', '30%'],
+            radius: 50,
+            center: ['65%', '20%'],
             data: categoryClassifyData[1].data
         }, {
             type: 'pie',
-            radius: 60,
-            center: ['25%', '75%'],
+            radius: 50,
+            center: ['25%', '65%'],
             data: categoryClassifyData[2].data
         }, {
             type: 'pie',
-            radius: 60,
-            center: ['75%', '75%'],
+            radius: 50,
+            center: ['65%', '65%'],
             data: categoryClassifyData[3].data
         }]
     };
@@ -1597,61 +1588,12 @@ return a.value[2]+"万元";
                     window.onresize = myChart.resize;
                     myChart.setOption(option)
               },
-                drawLineChart() {
-    
-                    var monthSale = this.monthSale;
-                    var option = {
-                        title: {
-                            text: '月销售额（万）',
-                            left: 'center',
-                            textStyle: {
-                                color: '#9AA8D4'
-                            }
-                        },
-                        tooltip: {
-                            trigger: 'item',
-                            formatter: "{b}月份 {a}  <br/> {c}元"
-                        },
-                        xAxis: {
-                            type: 'category',
-                            data: monthArray,
-                                axisLabel: {
-                                    textStyle: {
-                                        color: '#fff'
-                                    }
-                                }
-                        },
-                        yAxis: {
-                            type: 'value',
-                            axisLabel: {
-                                    textStyle: {
-                                        color: '#fff'
-                                    }
-                                }
-                        },
-                        series: [{
-                            name: "销售额",
-                            data: (function () {
-                                var res = [];
-                                monthSale.forEach(function (item) {
-                                    res.push(item.value)
-                                })
-                                return res
-    
-                            })(),
-                            type: 'line'
-                        }]
-                    };
-                    let myChart = this.$echarts.init(this.$refs.lineChart);
-                    window.onresize = myChart.resize;
-                    myChart.setOption(option)
-                },
                 drawBarChart() {
                     var monthSale =this.monthSale;
                     var option = {
                         color: ['#3398DB'],
                         title: {
-                            text: '月销售额', 
+                            text: '月销售额（万）', 
                             left: 'center',
                             textStyle: {
                                 color: '#9AA8D4'
@@ -1742,7 +1684,7 @@ return a.value[2]+"万元";
                     var monthCategoryData=this.monthCategoryData;
                     var option = {
                         title:{  
-                             text: '销售额（按 自行车）', 
+                             text: '销售额（按 自行车）(万)', 
                             textStyle: {
                                 color: '#9AA8D4'
                             }},
@@ -2049,7 +1991,6 @@ return a.value[2]+"万元";
                 this.drawCategorybyMonth();
                 this.drawPieChart();
                 this.drawBarChart();
-                this.drawLineChart();
        // this.formatMonthCategoryData();
     //this.getbarData();
              
@@ -2100,7 +2041,6 @@ return a.value[2]+"万元";
     
         .box-content {
             display: block;
-            margin-bottom: 20px;
             line-height: 1.42857143;
             -webkit-transition: border 0.2s ease-in-out;
             -o-transition: border 0.2s ease-in-out;
